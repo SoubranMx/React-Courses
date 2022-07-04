@@ -5,11 +5,15 @@ import ListadoPacientes from './components/ListadoPacientes'
 
 const App = () => {
   return (
-    <>
-      <Formulario />
+    <div className = 'container mx-auto mt-4'>
       <Header />
-      <ListadoPacientes />
-    </>
+
+      <div className='mt-12 md:flex'>
+        <Formulario />
+        <ListadoPacientes />
+      </div>
+
+    </div>
   )
 }
 
