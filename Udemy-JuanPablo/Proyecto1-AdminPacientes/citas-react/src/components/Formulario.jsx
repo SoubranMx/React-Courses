@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Formulario = () => {
+const Formulario = (props) => {
   const [nombre, setNombre] = useState("");
   const [propietario, setPropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -18,6 +18,20 @@ const Formulario = () => {
       return;
     }
 
+    let paciente = {
+      nombre,
+      propietario,
+      email,
+      fechaAlta,
+      sintomas,
+    };
+
+    props.onSubmitPaciente(paciente);
+    setNombre("");
+    setPropietario("");
+    setEmail("");
+    setFechaAlta("");
+    setSintomas("");
     setError(false);
   };
 
