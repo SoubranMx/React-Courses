@@ -5,18 +5,20 @@ import ListadoPacientes from "./components/ListadoPacientes";
 
 const App = () => {
   const [pacientes, setPacientes] = useState([]);
-
-  const onSubmitPaciente = (paciente) => {
-    setPacientes([...pacientes, paciente]);
-  };
+  const [paciente, setPaciente] = useState({});
 
   return (
     <div className="container mx-auto mt-4">
       <Header />
 
       <div className="mt-12 md:flex">
-        <Formulario onSubmitPaciente={onSubmitPaciente} />
-        <ListadoPacientes pacientes={pacientes} />
+        <Formulario
+          pacientes={pacientes}
+          setPacientes={setPacientes}
+          paciente={paciente}
+          setPaciente={setPaciente}
+        />
+        <ListadoPacientes pacientes={pacientes} setPaciente={setPaciente} />
       </div>
     </div>
   );
