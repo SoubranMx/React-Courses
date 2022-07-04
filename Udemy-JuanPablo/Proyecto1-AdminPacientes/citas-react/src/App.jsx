@@ -16,7 +16,7 @@ const App = () => {
 
       <div className="mt-12 md:flex">
         <Formulario onSubmitPaciente={onSubmitPaciente} />
-        <ListadoPacientes />
+        <ListadoPacientes pacientes={pacientes} />
       </div>
     </div>
   );
