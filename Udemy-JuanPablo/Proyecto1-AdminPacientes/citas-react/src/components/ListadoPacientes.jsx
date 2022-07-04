@@ -10,8 +10,8 @@ const ListadoPacientes = ({ pacientes }) => {
         <span className="text-indigo-600 font-bold">Pacientes y Citas</span>
       </p>
       <div className="md:h-screen overflow-y-scroll">
-        {pacientes.map((paciente, index) => (
-          <Paciente paciente={paciente} key={index} />
+        {pacientes.map((paciente) => (
+          <Paciente key={paciente.id} paciente={paciente} />
         ))}
       </div>
     </div>
