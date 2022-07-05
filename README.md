@@ -10,5 +10,5 @@ Still trying to understand the readme.md ways.
 
 ### Juan Pablo de la Torre udemy course - Web ReactDOM
 
-- [Vet/Patients administrator - Simple CRUD with Local Storage.](https://spiffy-kataifi-4e8f0c.netlify.app/)
-- [Spending Control](https://golden-treacle-310ecb.netlify.app/)
+- [Vet/Patients administrator - Simple CRUD with Local Storage.](admin-pacientes-4e8f0c.netlify.app)
+- [Spending Control](https://control-gastos-310ecb.netlify.app)
