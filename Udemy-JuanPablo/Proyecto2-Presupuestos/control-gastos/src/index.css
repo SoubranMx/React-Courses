@@ -185,6 +185,7 @@ header h1 {
 .formulario input[type="number"].nuevo-presupuesto {
     font-size: 2.8rem;
     text-align: center;
+    width: 100%;
 }
 
 .contenedor-presupuesto svg {
@@ -357,11 +358,15 @@ main {
 
 .modal .formulario {
     max-width: 80rem;
-    width: 40rem;
     transition-property: all;
     transition-duration: 300ms;
     transition-timing-function: ease-in;
     opacity: 0;
+}
+@media (min-width: 768px) {
+    .modal .formulario {
+        width: 40rem;
+    }
 }
 .modal label {
     color: var(--blanco);
