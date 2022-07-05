@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 
 import Header from "./components/Header";
+import Filtros from "./components/Filtros";
 import ListadoGastos from "./components/ListadoGastos";
 import Modal from "./components/Modal";
 
@@ -16,17 +17,14 @@ const App = () => {
   const [modal, setModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
 
-  // const [gastos, setGastos] = useState(
-  //   localStorage.getItem("gastos")
-  //     ? JSON.parse(localStorage.getItem("gastos"))
-  //     : []
-  // );
-
   const [gastos, setGastos] = useState([
     ...(JSON.parse(localStorage.getItem("gastos")) ?? []),
   ]);
 
   const [gastoEditar, setGastoEditar] = useState({});
+
+  const [filtro, setFiltro] = useState("");
+  const [gastosFiltrados, setGastosFiltrados] = useState([]);
 
   useEffect(() => {
     if (Object.keys(gastoEditar).length > 0) {
@@ -44,6 +42,16 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("gastos", JSON.stringify(gastos));
   }, [gastos]);
+
+  useEffect(() => {
+    if (filtro) {
+      //Filtrar gastos por categoria
+      const gastosFiltradosLocal = gastos.filter(
+        (gasto) => gasto.categoria === filtro
+      );
+      setGastosFiltrados(gastosFiltradosLocal);
+    }
+  }, [filtro]);
 
   useEffect(() => {
     const presupuestoLS = Number(localStorage.getItem("presupuesto")) ?? 0;
@@ -98,10 +106,13 @@ const App = () => {
       {isValidPresupuesto && (
         <>
           <main>
+            <Filtros filtro={filtro} setFiltro={setFiltro} />
             <ListadoGastos
               gastos={gastos}
               setGastoEditar={setGastoEditar}
               eliminarGasto={eliminarGasto}
+              filtro={filtro}
+              gastosFiltrados={gastosFiltrados}
             />
           </main>
           <div className="nuevo-gasto">
