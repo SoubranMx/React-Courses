@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 
 import Header from "./components/Header";
+import ListadoGastos from "./components/ListadoGastos";
 import Modal from "./components/Modal";
+
 import IconoNuevoGasto from "./img/nuevo-gasto.svg";
 
 const App = () => {
@@ -20,8 +22,8 @@ const App = () => {
   };
 
   const guardarGasto = (gasto) => {
-    console.log(gasto);
     gasto.id = nanoid();
+    gasto.fecha = Date.now();
     setGastos([...gastos, gasto]);
 
     setAnimarModal(false);
@@ -39,13 +41,18 @@ const App = () => {
         setIsValidPresupuesto={setIsValidPresupuesto}
       />
       {isValidPresupuesto && (
-        <div className="nuevo-gasto">
-          <img
-            src={IconoNuevoGasto}
-            alt="Icono nuevo gasto"
-            onClick={handleNuevoGasto}
-          />
-        </div>
+        <>
+          <main>
+            <ListadoGastos gastos={gastos} />
+          </main>
+          <div className="nuevo-gasto">
+            <img
+              src={IconoNuevoGasto}
+              alt="Icono nuevo gasto"
+              onClick={handleNuevoGasto}
+            />
+          </div>
+        </>
       )}
 
       {modal && (
