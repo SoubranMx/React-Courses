@@ -9,3 +9,10 @@ export const formatearFecha = (fecha) => {
     return fechaNueva.toLocaleDateString('es-MX', opciones)
 
 }
+
+export const formatearCantidad = (cantidad) => {
+    return cantidad.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+  };
