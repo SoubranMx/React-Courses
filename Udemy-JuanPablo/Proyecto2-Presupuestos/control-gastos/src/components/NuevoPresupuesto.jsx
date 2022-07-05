@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Mensaje from "./Mensaje";
 
-const NuevoPresupuesto = ({ presupuesto, setPresupuesto }) => {
+const NuevoPresupuesto = ({
+  presupuesto,
+  setPresupuesto,
+  setIsValidPresupuesto,
+}) => {
   const [mensaje, setMensaje] = useState("");
 
   const handlePresupuesto = (e) => {
@@ -9,10 +13,14 @@ const NuevoPresupuesto = ({ presupuesto, setPresupuesto }) => {
     //Aceptar un numero => Number(state)
     //If not Number => NaN
 
-    if (!Number(presupuesto) || Number(presupuesto) < 0) {
+    //As the input changed from text to number, we no longer need to convert Number(state)
+    if (!presupuesto || presupuesto < 0) {
       setMensaje("No es un presupuesto válido.");
       return;
     }
+
+    setMensaje("");
+    setIsValidPresupuesto(true);
   };
 
   return (
@@ -21,11 +29,11 @@ const NuevoPresupuesto = ({ presupuesto, setPresupuesto }) => {
         <div className="campo">
           <label htmlFor="">Definir Presupuesto</label>
           <input
-            type="text"
+            type="number"
             className="nuevo-presupuesto"
             placeholder="Añade tu presupuesto"
             value={presupuesto}
-            onChange={(e) => setPresupuesto(e.target.value)}
+            onChange={(e) => setPresupuesto(Number(e.target.value))}
           />
         </div>
         <input type="submit" value="Añadir" />
