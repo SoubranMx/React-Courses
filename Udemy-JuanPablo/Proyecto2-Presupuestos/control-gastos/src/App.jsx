@@ -42,6 +42,7 @@ const App = () => {
         gastoState.id === gasto.id ? gasto : gastoState
       );
       setGastos(gastosActualizados);
+      setGastoEditar({});
     } else {
       //Nuevo Gasto
       gasto.id = nanoid();
@@ -53,6 +54,11 @@ const App = () => {
     setTimeout(() => {
       setModal(false);
     }, 500);
+  };
+
+  const eliminarGasto = (id) => {
+    const gastosActualizados = gastos.filter((gasto) => gasto.id !== id);
+    setGastos(gastosActualizados);
   };
 
   return (
@@ -67,7 +73,11 @@ const App = () => {
       {isValidPresupuesto && (
         <>
           <main>
-            <ListadoGastos gastos={gastos} setGastoEditar={setGastoEditar} />
+            <ListadoGastos
+              gastos={gastos}
+              setGastoEditar={setGastoEditar}
+              eliminarGasto={eliminarGasto}
+            />
           </main>
           <div className="nuevo-gasto">
             <img
@@ -86,6 +96,7 @@ const App = () => {
           setAnimarModal={setAnimarModal}
           guardarGasto={guardarGasto}
           gastoEditar={gastoEditar}
+          setGastoEditar={setGastoEditar}
         />
       )}
     </div>
