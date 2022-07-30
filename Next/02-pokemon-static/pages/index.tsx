@@ -1,6 +1,5 @@
 import { Button } from '@nextui-org/react'
 import type { NextPage } from 'next'
-import { FC, PropsWithChildren } from 'react'
 import { Layout } from '../components/layouts'
 
 

@@ -1,13 +1,14 @@
-import { FC, PropsWithChildren } from "react"
+import { FC, ReactNode } from "react"
 
 import Head from "next/head"
 
 interface Props {
+    children?: ReactNode;
     title?: string;
 }
   
 
-export const Layout: FC<PropsWithChildren<Props>> = ({children, title}) => {
+export const Layout: FC<Props> = ({children, title}: Props) => {
   return (
     <>
         <Head>
