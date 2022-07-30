@@ -45,7 +45,6 @@ const HomePage: NextPage<Props> = ({pokemons}) => {
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  //const { data } = await  // your fetch function here 
   //console.log('Hola mundo staticProps') //Este clg aparece en la consola (Terminal), no en la consola de Chrome/Edge/Firefox
   
   const {data} = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151')
@@ -54,8 +53,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       id: index + 1,
       img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ index + 1 }.svg`
   }))
-
-  //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/id.svg
 
   return {
     props: {
