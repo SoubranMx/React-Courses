@@ -1,7 +1,6 @@
 
 
 const toggleFavorite = ( id: number ) => {
-    console.log('toggleFavorite llamado')
 
     let favorites: number[] = JSON.parse( localStorage.getItem('favorites') || '[]')
 
@@ -15,6 +14,23 @@ const toggleFavorite = ( id: number ) => {
 
 }
 
+const existsInFavorites = ( id: number ): boolean => {
+    if ( typeof window === 'undefined' ) return false;  //Como primero se corre el del server, esto se corre y regresa, luego pasa el lado del cliente
+
+    const favorites: number[] = JSON.parse( localStorage.getItem('favorites') || '[]')
+
+    return favorites.includes( id )
+}
+
+const pokemons = (): number[] => {
+
+    //se usara el useEffect para verificar si existe algo en el lS en vez de las soluciones anteriores
+    return JSON.parse( localStorage.getItem('favorites') || '[]' )
+
+}
+
 export default {
+    existsInFavorites,
     toggleFavorite,
+    pokemons
 }

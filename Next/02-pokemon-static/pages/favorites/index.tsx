@@ -1,12 +1,25 @@
-import { Grid, Text } from '@nextui-org/react'
+import { useState, useEffect } from 'react';
+
 import { Layout } from '../../components/layouts'
+import {FavoritePokemons} from '../../components/pokemon'
+import { NoFavorites } from '../../components/ui';
+import { localFavorites } from '../../utils';
 
 const FavoritesPage = () => {
+  const [favoritePokemons, setFavoritePokemons] = useState<number[]>([])
+
+  useEffect(()=>{
+    setFavoritePokemons( localFavorites.pokemons )
+  },[])
+
   return (
     <Layout title='Favoritos'>
-        <Grid.Container gap = { 2 } justify='flex-start'>
-            <Text h1>Favoritos</Text>
-        </Grid.Container>
+      {
+        favoritePokemons.length === 0
+        ? (<NoFavorites />)
+        : (<FavoritePokemons pokemons={favoritePokemons}/>)
+      }
+        
     </Layout>
   )
 }
