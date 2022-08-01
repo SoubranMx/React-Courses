@@ -1,10 +1,10 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
-import { useRouter } from "next/router"
 import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
 
 import { pokeApi } from "../../api";
 import { Layout } from "../../components/layouts"
 import { Pokemon } from "../../interfaces";
+import { localFavorites } from '../../utils'
 
 interface Props {
   pokemon: Pokemon;
@@ -15,8 +15,13 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
   // Esto podria usarse pero se usará otra forma
   // const router = useRouter()
   // console.log(router.query)
+
+  const onToggleFavorite = () => {
+    localFavorites.toggleFavorite( pokemon.id )
+  }
+
   return (
-    <Layout title='Algun pokemon'>
+    <Layout title={pokemon.name}>
         <Grid.Container css={{marginTop: '5px'}} gap={2}>
           
           <Grid xs={12} sm={4}>
@@ -39,6 +44,7 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
                 <Button 
                   color={'gradient'}
                   ghost
+                  onPress = { onToggleFavorite }
                 >
                   Guardar en favoritos
                 </Button>
@@ -74,7 +80,7 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
               </Card.Body>
             </Card>
           </Grid>
-          
+
         </Grid.Container>
     </Layout>
   )
