@@ -13,7 +13,7 @@ const origin = (typeof window === 'undefined') ? '' : window.location.origin;
 
 export const Layout: FC<Props> = ({children, title}: Props) => {
     
-    console.log({origin})
+    //console.log({origin}) in web, should see http://localhost:3000, in console should say: '' and in vercel/server should say: 'https:pokemon-static-something.vercel.app'
   return (
     <>
         <Head>
