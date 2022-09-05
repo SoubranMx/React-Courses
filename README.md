@@ -12,3 +12,6 @@ Still trying to understand the readme.md ways.
 
 - [Vet/Patients administrator - Simple CRUD with Local Storage.](https://admin-pacientes-4e8f0c.netlify.app)
 - [Spending Control](https://control-gastos-310ecb.netlify.app)
+
+### Fernando Herrera udemy course - NextJS
+- [Pokemon App (TS)](https://pokemon-static-lac.vercel.app)
