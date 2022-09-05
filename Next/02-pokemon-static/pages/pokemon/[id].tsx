@@ -51,7 +51,7 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
             <Card isHoverable css={{ padding: '30px' }}>
               <Card.Body>
                 <Card.Image 
-                  src = {pokemon.sprites.other?.dream_world.front_default || 'no-image.png'}
+                  src = {pokemon.sprites.other?.dream_world.front_default || pokemon.sprites.other?.home.front_default || 'no-image.png'}
                   alt = { pokemon.name }
                   width = '100%'
                   height = { 200 }
@@ -79,28 +79,32 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
                 <Container direction="row" display='flex' gap={ 0 }>
                   <Image 
                     src = { pokemon.sprites.front_default }
-                    alt = { pokemon.name }
+                    alt = { `${pokemon.name} front` }
                     width = { 100 }
                     height = { 100 }
                   />
-                  <Image 
-                    src = { pokemon.sprites.back_default }
-                    alt = { pokemon.name }
-                    width = { 100 }
-                    height = { 100 }
-                  />
+                  {pokemon.sprites.back_default && (
+                    <Image 
+                      src = { pokemon.sprites.back_default || 'no-image.png' }
+                      alt = { `${pokemon.name} back` }
+                      width = { 100 }
+                      height = { 100 }
+                    />
+                  )}
                   <Image 
                     src = { pokemon.sprites.front_shiny }
-                    alt = { pokemon.name }
+                    alt = { `${pokemon.name} front shiny` }
                     width = { 100 }
                     height = { 100 }
                   />
-                  <Image 
-                    src = { pokemon.sprites.back_shiny }
-                    alt = { pokemon.name }
-                    width = { 100 }
-                    height = { 100 }
-                  />
+                  {pokemon.sprites.back_shiny && (
+                    <Image 
+                      src = { pokemon.sprites.back_shiny }
+                      alt = { `${pokemon.name} back shiny` }
+                      width = { 100 }
+                      height = { 100 }
+                    />
+                  )}
                 </Container>
               </Card.Body>
             </Card>
@@ -132,18 +136,30 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
     paths: pokemons151.map( id => ({
       params: { id }
     })),
-    fallback: false //false manda un 404 cuando el path no coincide el id esperado.
+    //fallback: false //false manda un 404 cuando el path no coincide el id esperado.
+    fallback: "blocking"  //blocking nos deja pasar a GetStaticProps, por eso se muestra. Pero no se está generando la página estática.
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   //Cuando se ejecutan los paths, pasa a ejecutar staticprops. Ahora necesitamos el argumento desde el contexto con ctx.params
   const { id } = params as {id: string};
+  const pokemon = await getPokemonInfo(id)
+
+  if(!pokemon){
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false  //es false porque pueeede ser que en algun punto si exista el pokemon id 4545, p. ej.
+      }
+    }
+  }
 
   return {
     props: {
-      pokemon: await getPokemonInfo(id)
-    }
+      pokemon
+    },
+    revalidate: 86400, //En SEGUNDOS, p.ej. si quisiera cada 24 horas => 60 * 60 * 24 y seria mejor poner el calculo ya hecho = 86400
   }
 }
 
